@@ -80,7 +80,7 @@ public class SDCardUtils {
 	 * @return boolean
 	 */
 
-	public static boolean writeResoursToSDCard(String folder, String fileName,
+	public static String writeResoursToSDCard(String folder, String fileName,
 			byte[] content) {
 		String parentPath = getSDCardFilePath().getAbsolutePath()
 				+File.separator + folder;
@@ -98,7 +98,7 @@ public class SDCardUtils {
 			fo = new FileOutputStream(path);
 			
 			fo.write(content, 0, content.length);
-			return true;
+			return path;
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -115,7 +115,7 @@ public class SDCardUtils {
 				e.printStackTrace();
 			}
 		}
-		return false;
+		return null;
 	}
 	
 	public static byte[] getResoursFromSDCard(String dirpath){

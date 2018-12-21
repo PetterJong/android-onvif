@@ -1,4 +1,4 @@
-package com.wp.android_onvif;
+package com.hibox.myapplication;
 
 import android.content.Context;
 import android.view.View;

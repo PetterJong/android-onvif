@@ -40,8 +40,8 @@ public class GetSnapshotInfoThread extends Thread{
             //解析获取MediaProfile 集合
            String uri = XmlDecodeUtil.getSnapshotUri(getSnapshotString);
            byte[] bytes = HttpUtil.getByteArray(uri);
-           SDCardUtils.writeResoursToSDCard("hibox/pic" , "top.pic", bytes);
-           callBack.getSnapshotInfoResult(true, "NO_ERROR");
+           String path = SDCardUtils.writeResoursToSDCard("hibox/pic" , "top.pic", bytes);
+           callBack.getSnapshotInfoResult(true, path);
         } catch (Exception e) {
             e.printStackTrace();
             callBack.getSnapshotInfoResult(false, e.toString());

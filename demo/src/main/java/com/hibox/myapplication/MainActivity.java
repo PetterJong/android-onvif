@@ -1,4 +1,4 @@
-package com.wp.android_onvif;
+package com.hibox.myapplication;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements FindDevicesThread
             @Override
             public void getSnapshotInfoResult(boolean isSuccess, String errorMsg) {
 //                    loadingFragment.dismiss();
+                Log.v("MainActivity", "截图路径 " + errorMsg);
             }
         }).start();
     }
