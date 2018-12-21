@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://www.w3.org/2003/05/soap-envelope" xmlns:SOAP-ENC="http://www.w3.org/2003/05/soap-encoding" xmlns:env="http://www.w3.org/2003/05/soap-envelope" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:dndl="http://www.onvif.org/ver10/network/wsdl/DiscoveryLookupBinding" xmlns:dnrd="http://www.onvif.org/ver10/network/wsdl/RemoteDiscoveryBinding" xmlns:d="http://schemas.xmlsoap.org/ws/2005/04/discovery" xmlns:dn="http://www.onvif.org/ver10/network/wsdl">  
+  <SOAP-ENV:Header> 
+    <wsa:MessageID>urn:uuid:c25a2a64-1dd1-11b2-8339-000405006038</wsa:MessageID>  
+    <wsa:RelatesTo>uuid:d9305f63-5027-4edb-b1f1-58c463b5419a</wsa:RelatesTo>  
+    <wsa:To SOAP-ENV:mustUnderstand="true">http://schemas.xmlsoap.org/ws/2004/08/addressing/role/anonymous</wsa:To>  
+    <wsa:Action>http://schemas.xmlsoap.org/ws/2005/04/discovery/ProbeMatches</wsa:Action> 
+  </SOAP-ENV:Header>  
+  <SOAP-ENV:Body> 
+    <d:ProbeMatches> 
+      <d:ProbeMatch> 
+        <wsa:EndpointReference> 
+          <wsa:Address>urn:uuid:c25a2a64-1dd1-11b2-8339-000405006038</wsa:Address> 
+        </wsa:EndpointReference>  
+        <d:Types>dn:NetworkVideoTransmitter</d:Types>  
+        <d:Scopes>onvif://www.onvif.org/type/Network_Video_Transmitter onvif://www.onvif.org/type/video_encoder onvif://www.onvif.org/location/MyCamera onvif://www.onvif.org/hardware/RDC onvif://www.onvif.org/name/IPCAMERA onvif://www.onvif.org/type/audio_encoder onvif://www.onvif.org/Profile/Streaming</d:Scopes>  
+        <d:XAddrs>http://192.168.11.104/onvif/device_service</d:XAddrs>  
+        <d:MetadataVersion>1</d:MetadataVersion> 
+      </d:ProbeMatch> 
+    </d:ProbeMatches> 
+  </SOAP-ENV:Body> 
+</SOAP-ENV:Envelope>
