@@ -1,1 +1,1 @@
-include ':app', ':android_onvif'
+include ':android_onvif'
