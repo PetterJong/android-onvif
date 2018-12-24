@@ -10,10 +10,12 @@ import android.widget.ListView;
 import com.wp.android_onvif.onvif.FindDevicesThread;
 import com.wp.android_onvif.onvif.GetDeviceInfoThread;
 import com.wp.android_onvif.onvif.GetSnapshotInfoThread;
+import com.wp.android_onvif.onvif.SetSystemDateAndTimeThread;
 import com.wp.android_onvif.onvifBean.Device;
 import com.wp.android_onvif.util.NetUtil;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity implements FindDevicesThread.FindDevicesListener,
         GetDeviceInfoThread.GetDeviceInfoCallBack {
@@ -100,7 +102,12 @@ public class MainActivity extends AppCompatActivity implements FindDevicesThread
                 public void getSnapshotInfoResult(boolean isSuccess, String errorMsg) {
 //                    loadingFragment.dismiss();
                 }
-            }).start();
+            }).start(); // 读取摄像头时间
+
+//            new GetSystemDateAndTimeThread(device, this).start();
+            SetSystemDateAndTimeThread thread = new SetSystemDateAndTimeThread(device, this); // 修改摄像头时间
+            thread.setTime(new Date());
+            thread.start();
         }
     }
 }

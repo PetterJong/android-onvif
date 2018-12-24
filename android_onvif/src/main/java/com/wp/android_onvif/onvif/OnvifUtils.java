@@ -8,6 +8,9 @@ import com.wp.android_onvif.util.Gsoap;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class OnvifUtils {
 
@@ -34,8 +37,15 @@ public class OnvifUtils {
         //需要digest
         if (needDigest && digest != null) {
             if (params.length > 0) {
-                postString = String.format(postString, digest.getUserName(),
-                        digest.getEncodePsw(), digest.getNonce(), digest.getCreatedTime(), params[0]);
+                List<String> listParams = new ArrayList<>();
+                listParams.add(digest.getUserName());
+                listParams.add(digest.getEncodePsw());
+                listParams.add(digest.getNonce());
+                listParams.add(digest.getCreatedTime());
+                listParams.addAll(Arrays.asList(params));
+//                postString = String.format(postString, digest.getUserName(),
+//                        digest.getEncodePsw(), digest.getNonce(), digest.getCreatedTime(), params[0]);
+                postString = String.format(postString, listParams.toArray());
             } else {
                 postString = String.format(postString, digest.getUserName(),
                         digest.getEncodePsw(), digest.getNonce(), digest.getCreatedTime());
