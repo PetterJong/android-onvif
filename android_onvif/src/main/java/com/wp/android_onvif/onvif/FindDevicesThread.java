@@ -66,18 +66,23 @@ public class FindDevicesThread extends Thread {
                 udpSocket.setBroadcast(true);
                 //DatagramPacket
                 sendPacket = new DatagramPacket(sendData, sendData.length);
-                sendPacket.setAddress(InetAddress.getByName("192.168.1.10"));
+                sendPacket.setAddress(InetAddress.getByName("192.168.1.255"));
                 sendPacket.setPort(BROADCAST_PORT);
                 //发送
                 udpSocket.send(sendPacket);
                 //接受数据
                 receivePacket = new DatagramPacket(by, by.length);
-                while (receiveTag) {
+                long startTime = System.currentTimeMillis();
+                long lastTime = System.currentTimeMillis();
+                while (lastTime - startTime < 6 * 1000) {
                     udpSocket.receive(receivePacket);
                     String str = new String(receivePacket.getData(), 0, receivePacket.getLength());
                     Log.v("MainActivity", str);
-                    devices.add(XmlDecodeUtil.getDeviceInfo(str));
-                    receiveTag = false;
+                    Device device = XmlDecodeUtil.getDeviceInfo(str);
+                    if(device != null){
+                        devices.add(device);
+                    }
+                    lastTime = System.currentTimeMillis();
                 }
             } catch (Exception e) {
                 e.printStackTrace();

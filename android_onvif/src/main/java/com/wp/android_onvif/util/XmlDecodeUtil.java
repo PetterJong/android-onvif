@@ -22,7 +22,7 @@ public class XmlDecodeUtil {
      * 获取设备信息
      */
     public static Device getDeviceInfo(String xml) throws Exception {
-        Device device = new Device();
+        Device device = null;
         XmlPullParser parser = Xml.newPullParser();
         InputStream input = new ByteArrayInputStream(xml.getBytes());
         parser.setInput(input, "UTF-8");
@@ -34,12 +34,16 @@ public class XmlDecodeUtil {
                 case XmlPullParser.START_TAG:
                     //serviceUrl
                     if (parser.getName().equals("XAddrs")) {
+                        if(device == null)
+                            device = new Device();
                         String addrs = parser.nextText();
                         String[] strs = addrs.split(" ");
                         String url = strs[0];
                         device.setServiceUrl(url);
                     }
                     if (parser.getName().equals("MessageID")) {
+                        if(device == null)
+                            device = new Device();
                         device.setUuid(parser.nextText());
                     }
                     break;
