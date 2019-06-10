@@ -6,7 +6,9 @@ import com.hibox.library.util.LogClientUtils;
 import com.wp.android_onvif.onvif.FindDevicesThread;
 import com.wp.android_onvif.onvif.GetDeviceInfoThread;
 import com.wp.android_onvif.onvif.GetSnapshotInfoThread;
+import com.wp.android_onvif.onvif.SetNetworkInterfaceThread;
 import com.wp.android_onvif.onvif.SetSystemDateAndTimeThread;
+import com.wp.android_onvif.onvif.SystemRebootThread;
 import com.wp.android_onvif.onvifBean.Device;
 
 import java.util.ArrayList;
@@ -33,7 +35,7 @@ public class OnvifSdk {
         findDevice(context);
     }
 
-    private synchronized static void findDevice(Context context){
+    public synchronized static void findDevice(Context context){
         if(searching){
             return;
         }
@@ -138,6 +140,44 @@ public class OnvifSdk {
         });
     }
 
+    /**
+     * 重启睡觉额想偷
+     *
+     * @param context  context
+     * @param ipAdress 摄像头地址（192.168.1.10）
+     * @param callBack 获取截图接口
+     */
+    public static void systemReboot(final Context context, String ipAdress,
+                                    final SystemRebootThread.SystemRebootCallBack callBack) {
+        Device device = deviceHashMap.get(ipAdress);
+        if (device != null) { // 查找设备，获取设备基本信息（mediaUri,token值等等）
+            systemRebootThread(context, device, callBack);
+        } else {
+            callBack.systemRebootResult(false, device, "重启摄像头未找到对应的设备");
+        }
+    }
+
+    /**
+     *
+     * 修改摄像头Ip,修改之前最好最ip验证，保证新的ip地址为192.168.1.255这个网段下，否者回到值修改后找不到该设备。
+     * 在callBack返回true时必须调用探索设备方法{@link #findDevice(Context)}
+     * @param context context
+     * @param oldIpAdress 为修改前的ip地址
+     * @param newIpAddress 修改后的ip地址
+     * @param interfaceToken token "eth0"
+     * @param prefixLength 长度 24
+     * @param callBack 修改IP地址回调
+     */
+    public static void setNetworkInterface(final Context context,  String oldIpAdress, String newIpAddress,  String interfaceToken, String prefixLength,  final SetNetworkInterfaceThread.SetNetworkInterfaceCallBack callBack ){
+        Device device = deviceHashMap.get(oldIpAdress);
+        if (device != null) { // 查找设备，获取设备基本信息（mediaUri,token值等等）
+            setNetworkInterface(context, device,interfaceToken, newIpAddress, prefixLength, callBack);
+        } else {
+            findDevice(mContext);
+            callBack.getDeviceInfoResult(false, device, "重启摄像头未找到对应的设备");
+        }
+    }
+
 
     /**
      * 搜索网段下的设备，可以是广播地址
@@ -146,7 +186,7 @@ public class OnvifSdk {
      * @param ipAdress 192.168.1.255
      * @param listener FindDevicesListener
      */
-    public static void findDevice(Context context, String ipAdress, final FindDevicesThread.FindDevicesListener listener) {
+    private static void findDevice(Context context, String ipAdress, final FindDevicesThread.FindDevicesListener listener) {
         FindDevicesThread findDevicesThread = new FindDevicesThread(context, ipAdress, new FindDevicesThread.FindDevicesListener() {
             @Override
             public void searchResult(ArrayList<Device> devices) {
@@ -179,6 +219,16 @@ public class OnvifSdk {
         setSystemDateAndTimeThread.start();
     }
 
+    private static void systemRebootThread(Context context, final Device device, SystemRebootThread.SystemRebootCallBack callBack) {
+        SystemRebootThread systemRebootThread = new SystemRebootThread(device, context, callBack);
+        systemRebootThread.start();
+    }
+
+    private static void setNetworkInterface(Context context, final Device device, String interfaceToken,  String newIpAddress, String prefixLength, SetNetworkInterfaceThread.SetNetworkInterfaceCallBack callBack) {
+        SetNetworkInterfaceThread systemRebootThread = new SetNetworkInterfaceThread(device, context,interfaceToken, newIpAddress, prefixLength,  callBack);
+        systemRebootThread.start();
+    }
+
 
     /**
      * 正规操作应该是先统统findDevice搜索设备，然后在获取设备信息。
@@ -198,4 +248,7 @@ public class OnvifSdk {
     }
 
 
+    public static HashMap<String, Device> getDeviceHashMap() {
+        return deviceHashMap;
+    }
 }

@@ -3,6 +3,9 @@ package com.wp.android_onvif.onvif;
 import android.content.Context;
 import android.util.Log;
 
+import com.hibox.library.constant.Constant;
+import com.hibox.library.util.FileUtils;
+import com.hibox.library.util.LogClientUtils;
 import com.wp.android_onvif.onvifBean.Device;
 import com.wp.android_onvif.util.HttpUtil;
 
@@ -45,6 +48,7 @@ public class SetSystemDateAndTimeThread extends Thread {
             String second = String.valueOf(calendar.get(Calendar.SECOND));
             String postString = OnvifUtils.getPostString("setSystemDateAndTime.xml", context, device, true,
                     year, month, day, hour, mine, second);
+//            FileUtils.writeResoursToSDCard(Constant.ROOT_PATH, "settime.txt", postString.getBytes());
             String setSystemDateAndTimeString = HttpUtil.postRequest(device.getServiceUrl(), postString);
             Log.v("MainActivity", setSystemDateAndTimeString);
             if(callBack != null){

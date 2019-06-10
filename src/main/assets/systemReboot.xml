@@ -11,24 +11,7 @@
         </Security>
     </s:Header>
     <s:Body xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-        <SetSystemDateAndTime xmlns="http://www.onvif.org/ver10/device/wsdl">
-            <DateTimeType>Manual</DateTimeType>
-            <DaylightSavings>false</DaylightSavings>
-            <TimeZone>
-                <TZ xmlns="http://www.onvif.org/ver10/schema">CST-0:00:00</TZ>
-            </TimeZone>
-            <UTCDateTime>
-                <Date xmlns="http://www.onvif.org/ver10/schema">
-                    <Year>%s</Year>
-                    <Month>%s</Month>
-                    <Day>%s</Day>
-                </Date>
-                <Time xmlns="http://www.onvif.org/ver10/schema">
-                    <Hour>%s</Hour>
-                    <Minute>%s</Minute>
-                    <Second>%s</Second>
-                </Time>
-            </UTCDateTime>
-        </SetSystemDateAndTime>
+        <SystemReboot xmlns="http://www.onvif.org/ver10/device/wsdl">
+        </SystemReboot>
     </s:Body>
 </s:Envelope>
