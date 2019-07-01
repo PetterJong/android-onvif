@@ -10,7 +10,7 @@ import com.wp.android_onvif.util.HttpUtil;
  * 获取摄像机时间
  */
 public class GetSystemDateAndTimeThread extends Thread{
-
+    private static String tag = "OnvifSdk";
 
     private Device device;
     private Context context;
@@ -29,7 +29,7 @@ public class GetSystemDateAndTimeThread extends Thread{
             //getProfiles，需要鉴权
             String postString = OnvifUtils.getPostString("getSystemDateAndTime.xml", context, device,true);
             String getSystemDateAndTime = HttpUtil.postRequest(device.getServiceUrl(), postString);
-            Log.v("MainActivity", getSystemDateAndTime);
+            Log.v(tag, getSystemDateAndTime);
             //解析获取MediaProfile 集合
 //            String uri = XmlDecodeUtil.getSnapshotUri(getSystemDateAndTime);
 //            byte[] bytes = HttpUtil.getByteArray(uri);

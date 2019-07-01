@@ -3,9 +3,6 @@ package com.wp.android_onvif.onvif;
 import android.content.Context;
 import android.util.Log;
 
-import com.hibox.library.constant.Constant;
-import com.hibox.library.util.FileUtils;
-import com.hibox.library.util.LogClientUtils;
 import com.wp.android_onvif.onvifBean.Device;
 import com.wp.android_onvif.util.HttpUtil;
 

@@ -27,5 +27,7 @@ dependencies {
     implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     testImplementation 'junit:junit:4.12'
-    implementation project(':library')
+    implementation 'com.squareup.okhttp3:okhttp:3.8.1'
 }
+
+//<StartFirmwareUpgrade xmlns="http://www.onvif.org/ver10/device/wsdl"/></s:Body

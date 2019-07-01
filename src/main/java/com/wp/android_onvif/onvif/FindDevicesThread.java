@@ -20,7 +20,7 @@ import java.util.ArrayList;
  */
 
 public class FindDevicesThread extends Thread {
-
+    private static String tag = "OnvifSdk";
     private byte[] sendData;
     private boolean readResult = false;
     private String ipAdress;
@@ -86,7 +86,7 @@ public class FindDevicesThread extends Thread {
                 while (endTime - startTime < 4  * 1000) {
                     udpSocket.receive(receivePacket);
                     String str = new String(receivePacket.getData(), 0, receivePacket.getLength());
-                    Log.v("FindDevicesThread", str);
+                    Log.v(tag, str);
                     devices.add(XmlDecodeUtil.getDeviceInfo(str));
                     endTime = System.currentTimeMillis();
                 }

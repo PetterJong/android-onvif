@@ -13,7 +13,7 @@ import com.wp.android_onvif.util.XmlDecodeUtil;
  * 获取摄像机截图
  */
 public class GetSnapshotInfoThread extends Thread{
-
+    private static String tag = "OnvifSdk";
 
     private Device device;
     private Context context;
@@ -49,7 +49,7 @@ public class GetSnapshotInfoThread extends Thread{
             String postString = OnvifUtils.getPostString("getSnapshotUri.xml", context, device,true,
                     mediaProfile == null?"000":mediaProfile.getToken());
             String getSnapshotString = HttpUtil.postRequest(device.getMediaUrl(), postString);
-            Log.v("MainActivity", getSnapshotString);
+            Log.v(tag, getSnapshotString);
             //解析获取MediaProfile 集合
            String uri = XmlDecodeUtil.getSnapshotUri(getSnapshotString);
            byte[] bytes = HttpUtil.getByteArray(uri);

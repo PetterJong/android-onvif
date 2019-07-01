@@ -19,7 +19,7 @@ import java.io.InputStream;
  */
 
 public class GetDeviceInfoThread extends Thread {
-
+    private static String tag = "OnvifSdk";
     private Device device;
     private Context context;
     private GetDeviceInfoCallBack callBack;

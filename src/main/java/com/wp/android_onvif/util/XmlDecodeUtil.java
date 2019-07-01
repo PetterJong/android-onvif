@@ -129,9 +129,9 @@ public class XmlDecodeUtil {
                     //serviceUrl
                     if (parser.getName().equals("Profiles")) {
                         profile = new MediaProfile();
-                       String token = parser.getAttributeValue(null, "token");
+                        String token = parser.getAttributeValue(null, "token");
                         //获取token
-                        if(token != null){
+                        if (token != null) {
                             profile.setToken(token);
                         }
                         parser.next();
@@ -141,12 +141,41 @@ public class XmlDecodeUtil {
                         }
                     } else if (parser.getName().equals("VideoEncoderConfiguration") && profile != null) {
                         //获取VideoEncode Token
-                        profile.getVideoEncode().setToken(parser.getAttributeValue(0));
+                        String token = parser.getAttributeValue(null, "token");
+                        profile.getVideoEncode().setToken(token);
+//                        profile.getVideoEncode().setToken(parser.getAttributeValue(0));
                         tag = "Video";
                     } else if (parser.getName().equals("AudioEncoderConfiguration") && profile != null) {
                         //获取AudioEncode Token
-                        profile.getAudioEncode().setToken(parser.getAttributeValue(0));
+                        String token = parser.getAttributeValue(null, "token");
+                        profile.getVideSource().setToken(token);
+//                        profile.getAudioEncode().setToken(parser.getAttributeValue(0));
                         tag = "Audio";
+                    } else if (parser.getName().equals("VideoSourceConfiguration") && profile != null) {
+                        //获取AudioEncode Token
+                        String token = parser.getAttributeValue(null, "token");
+                        profile.getVideSource().setToken(token);
+                        tag = "videoSource";
+                    } else if (parser.getName().equals("Name") && profile != null) {
+                        //获取AudioEncode Token
+                        if (tag.equals("videoSource")) {
+                            String text = parser.nextText();
+                            profile.getVideSource().setName(text);
+                        }
+                    } else if (parser.getName().equals("UseCount") && profile != null) {
+                        //获取AudioEncode Token
+                        if (tag.equals("videoSource")) {
+                            String text = parser.nextText();
+                            profile.getVideSource().setUserCount(text);
+                        }
+                    } else if (parser.getName().equals("Bounds") && profile != null) {
+                        //获取AudioEncode Token
+                        if (tag.equals("videoSource")) {
+                            String height = parser.getAttributeValue(null, "height");
+                            String width = parser.getAttributeValue(null, "width");
+                            profile.getVideSource().setHeight(Integer.parseInt(height));
+                            profile.getVideSource().setWidth(Integer.parseInt(width));
+                        }
                     } else if (parser.getName().equals("Width") && profile != null) {
                         //分辨率宽
                         String text = parser.nextText();
@@ -271,6 +300,32 @@ public class XmlDecodeUtil {
             eventType = parser.next();
         }
         return mediaUrl;
+    }
+
+    public static String getUploadUri(String xml) throws Exception {
+        String UploadUri = "";
+        XmlPullParser parser = Xml.newPullParser();
+        InputStream input = new ByteArrayInputStream(xml.getBytes());
+        parser.setInput(input, "UTF-8");
+        int eventType = parser.getEventType();
+        while (eventType != XmlPullParser.END_DOCUMENT) {
+            switch (eventType) {
+                case XmlPullParser.START_DOCUMENT:
+                    break;
+                case XmlPullParser.START_TAG:
+                    //serviceUrl
+                    if (parser.getName().equals("UploadUri")) {
+                        UploadUri = parser.nextText();
+                    }
+                    break;
+                case XmlPullParser.END_TAG:
+                    break;
+                default:
+                    break;
+            }
+            eventType = parser.next();
+        }
+        return UploadUri;
     }
 
 }

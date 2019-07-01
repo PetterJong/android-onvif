@@ -1,13 +1,15 @@
 package com.wp.android_onvif.util;
 
 import android.content.Context;
+import android.util.Log;
 
-import com.hibox.library.util.LogClientUtils;
 import com.wp.android_onvif.onvif.FindDevicesThread;
 import com.wp.android_onvif.onvif.GetDeviceInfoThread;
 import com.wp.android_onvif.onvif.GetSnapshotInfoThread;
+import com.wp.android_onvif.onvif.SetImagingSettingsThread;
 import com.wp.android_onvif.onvif.SetNetworkInterfaceThread;
 import com.wp.android_onvif.onvif.SetSystemDateAndTimeThread;
+import com.wp.android_onvif.onvif.StartFirmwareUpgradeThread;
 import com.wp.android_onvif.onvif.SystemRebootThread;
 import com.wp.android_onvif.onvifBean.Device;
 
@@ -15,6 +17,16 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
+/**
+ * Onvif摄像头sdk (需要注意的是，大部分设备为完全兼容onvif 摄像头厂家会有自己的私有协议，所有在部分摄像头设备上无法使用不跟功能)
+ * 本sdk集成
+ * 截图功能 {@linkplain #getSnapshot(Context, String, String, String, String, String, GetSnapshotInfoThread.GetSnapshotInfoCallBack)}
+ * 重启功能 {@linkplain #systemReboot(Context, String, SystemRebootThread.SystemRebootCallBack)}
+ * 设置时间功能 {@linkplain #setSystemDateAndTime(Context, Date, String, String, String, SetSystemDateAndTimeThread.OnSetSystemDateAndTimeCallBack)}
+ * 修改Ip地址 {@linkplain #setNetworkInterface(Context, String, String, String, String, SetNetworkInterfaceThread.SetNetworkInterfaceCallBack)}
+ * 固件升级功能 {@linkplain #startFirmwareUpgrade(Context, String, String, StartFirmwareUpgradeThread.StartFirmwareUpgradeCallBack)}
+ * 修改摄像头参数 {@linkplain #setImageingSettings(Context, String, float, SetImagingSettingsThread.SetImagingSettingsCallBack)}
+ */
 public class OnvifSdk {
     private static String tag = "OnvifSdk";
 
@@ -35,6 +47,10 @@ public class OnvifSdk {
         findDevice(context);
     }
 
+    /**
+     * 此方法内用户名和密码写死，需要在此处对饮修改，否者无法登录设备
+     * @param context
+     */
     public synchronized static void findDevice(Context context){
         if(searching){
             return;
@@ -58,11 +74,11 @@ public class OnvifSdk {
                                 getDeviceInfo(mContext, device, new GetDeviceInfoThread.GetDeviceInfoCallBack() {
                                     @Override
                                     public void getDeviceInfoResult(boolean isSuccess, Device device, String errorMsg) {
-                                        LogClientUtils.d(tag, "获取摄像头信息设备" + isSuccess + " " + errorMsg);
+                                        Log.d(tag, "获取摄像头信息设备" + isSuccess + " " + errorMsg);
                                         if (isSuccess) {
                                             setSystemDateAndTime(mContext, new Date(), device);
                                         }
-                                        LogClientUtils.d(tag, "发现摄像头设备" + device.toString());
+                                        Log.d(tag, "发现摄像头设备" + device.toString());
                                     }
                                 });
                             }
@@ -81,7 +97,7 @@ public class OnvifSdk {
      *
      * @param context     context
      * @param ipAdress    摄像头地址（192.168.1.10）
-     * @param user        摄像头登录帐号
+     * @param user        摄像头登录帐号 //不需要了，在探索设备的时候已经设置用户名和吗密码
      * @param pd          摄像头登录密码
      * @param picRootPath 截图保存的路劲
      * @param picFileName 截图保存的名称
@@ -132,16 +148,16 @@ public class OnvifSdk {
             @Override
             public void setSystemDateAndTimeResult(boolean isSuccess, String result) {
                 if (isSuccess) {
-                    LogClientUtils.d(tag, "摄像机时间修改成功" + device.getIpAddress());
+                    Log.d(tag, "摄像机时间修改成功" + device.getIpAddress());
                 } else {
-                    LogClientUtils.e(tag, "摄像机时间修改失败" + result);
+                    Log.e(tag, "摄像机时间修改失败" + result);
                 }
             }
         });
     }
 
     /**
-     * 重启睡觉额想偷
+     * 重启摄像头
      *
      * @param context  context
      * @param ipAdress 摄像头地址（192.168.1.10）
@@ -174,12 +190,48 @@ public class OnvifSdk {
             setNetworkInterface(context, device,interfaceToken, newIpAddress, prefixLength, callBack);
         } else {
             findDevice(mContext);
-            callBack.getDeviceInfoResult(false, device, "重启摄像头未找到对应的设备");
+            callBack.getDeviceInfoResult(false, null, "修改摄像头Ip未找到对应的设备");
         }
     }
 
+    /**
+     * 升级固件
+     * @param context context
+     * @param ipAddress IP地址
+     * @param filePath 固件包地址
+     * @param callBack 回调
+     */
+    public static void startFirmwareUpgrade(final Context context, String ipAddress, String filePath, StartFirmwareUpgradeThread.StartFirmwareUpgradeCallBack callBack){
+        Device device = deviceHashMap.get(ipAddress);
+        if (device != null) { // 查找设备，获取设备基本信息（mediaUri,token值等等）
+            StartFirmwareUpgradeThread startFirmwareUpgradeThread = new StartFirmwareUpgradeThread(filePath, device, context , callBack);
+            startFirmwareUpgradeThread.start();
+        } else {
+            findDevice(mContext);
+            callBack.startFirmwareUpgradeResult(false, null, "升级固件未找到对应的设备");
+        }
+    }
 
     /**
+     * 修改摄像头参数，目前仅支持设置亮度
+     * @param context context
+     * @param ipAddress IP地址
+     * @param brightness 亮度
+     * @param callBack 回调
+     */
+    public static void setImageingSettings(final Context context, String ipAddress, float brightness, SetImagingSettingsThread.SetImagingSettingsCallBack callBack){
+        Device device = deviceHashMap.get(ipAddress);
+        if (device != null) { // 查找设备，获取设备基本信息（mediaUri,token值等等）
+            SetImagingSettingsThread setImagingSettingsThread = new SetImagingSettingsThread(device, context, callBack);
+            setImagingSettingsThread.setBrightness(brightness);
+            setImagingSettingsThread.start();
+        } else {
+            findDevice(mContext);
+            callBack.setImagingSettingsThreadResult(false,  null,"修改摄像头参数未找到对应的设备");
+        }
+    }
+
+   /**
      * 搜索网段下的设备，可以是广播地址
      *
      * @param context  context

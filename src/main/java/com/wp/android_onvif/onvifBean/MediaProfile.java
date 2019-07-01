@@ -13,6 +13,7 @@ public class MediaProfile {
     private String name;
 
     private VideoEncoderConfiguration videoEncode;
+    private VideoSourceConfiguration videSource;
     private AudioEncoderConfiguration audioEncode;
 
     private PTZConfiguration ptzConfiguration;
@@ -23,6 +24,7 @@ public class MediaProfile {
     public MediaProfile() {
         this.videoEncode = new VideoEncoderConfiguration();
         this.audioEncode = new AudioEncoderConfiguration();
+        this.videSource = new VideoSourceConfiguration();
         this.ptzConfiguration = new PTZConfiguration();
     }
 
@@ -56,6 +58,14 @@ public class MediaProfile {
 
     public void setVideoEncode(VideoEncoderConfiguration videoEncode) {
         this.videoEncode = videoEncode;
+    }
+
+    public VideoSourceConfiguration getVideSource() {
+        return videSource;
+    }
+
+    public void setVideSource(VideoSourceConfiguration videSource) {
+        this.videSource = videSource;
     }
 
     public AudioEncoderConfiguration getAudioEncode() {
@@ -145,6 +155,61 @@ public class MediaProfile {
                     ", height=" + height +
                     ", frameRate=" + frameRate +
                     '}';
+        }
+    }
+
+    public class VideoSourceConfiguration{
+        //<tt:Name>VideoS_000</tt:Name>
+        //          <tt:UseCount>3</tt:UseCount>
+        //          <tt:SourceToken>000</tt:SourceToken>
+        //          <tt:Bounds height="1536" width="2048" y="0" x="0"/>
+
+        private String token;
+        private String name;
+        private String userCount;
+
+        //分辨率
+        private int width;
+        private int height;
+
+        public String getToken() {
+            return token;
+        }
+
+        public void setToken(String token) {
+            this.token = token;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getUserCount() {
+            return userCount;
+        }
+
+        public void setUserCount(String userCount) {
+            this.userCount = userCount;
+        }
+
+        public int getWidth() {
+            return width;
+        }
+
+        public void setWidth(int width) {
+            this.width = width;
+        }
+
+        public int getHeight() {
+            return height;
+        }
+
+        public void setHeight(int height) {
+            this.height = height;
         }
     }
 

@@ -56,6 +56,7 @@ public class SampleActivity extends AppCompatActivity {
 
             }
         });
+        // 其他功能，重启摄像头，修改IP地址，固件升级请在OnvifSdk查看
     }
 
 }
