@@ -14,8 +14,6 @@ import java.net.InetAddress;
 import java.util.ArrayList;
 
 /**
- * Author ： BlackHao
- * Time : 2018/1/8 14:38
  * Description : 利用线程搜索局域网内设备
  */
 

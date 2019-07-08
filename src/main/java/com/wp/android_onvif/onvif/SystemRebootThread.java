@@ -14,9 +14,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * Author ： BlackHao
- * Time : 2018/1/11 14:20
- * Description : 获取 device 相关信息
+ * 摄像头重启
  */
 
 public class SystemRebootThread extends Thread {

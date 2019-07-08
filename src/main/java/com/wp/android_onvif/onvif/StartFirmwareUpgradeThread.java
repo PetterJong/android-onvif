@@ -10,9 +10,6 @@ import com.wp.android_onvif.util.XmlDecodeUtil;
 
 /**
  * 固件升级功能
- * Author ： BlackHao
- * Time : 2018/1/11 14:20
- * Description : 获取 device 相关信息
  */
 
 public class StartFirmwareUpgradeThread extends Thread {

@@ -10,7 +10,7 @@ import com.wp.android_onvif.util.HttpUtil;
 import com.wp.android_onvif.util.XmlDecodeUtil;
 
 /**
- * 获取摄像机截图
+ * 设置摄像机参数
  */
 public class SetImagingSettingsThread extends Thread {
     private static String tag = "OnvifSdk";

@@ -219,7 +219,7 @@ public class OnvifSdk {
      * @param brightness 亮度
      * @param callBack 回调
      */
-    public static void setImageingSettings(final Context context, String ipAddress, float brightness, SetImagingSettingsThread.SetImagingSettingsCallBack callBack){
+    public static void setImageingSettings(final Context context, String ipAddress, Float brightness, SetImagingSettingsThread.SetImagingSettingsCallBack callBack){
         Device device = deviceHashMap.get(ipAddress);
         if (device != null) { // 查找设备，获取设备基本信息（mediaUri,token值等等）
             SetImagingSettingsThread setImagingSettingsThread = new SetImagingSettingsThread(device, context, callBack);

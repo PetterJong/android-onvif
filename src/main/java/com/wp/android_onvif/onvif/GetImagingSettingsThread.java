@@ -8,7 +8,7 @@ import com.wp.android_onvif.onvifBean.MediaProfile;
 import com.wp.android_onvif.util.HttpUtil;
 
 /**
- * 获取摄像机截图
+ * 获取摄像机图像参数
  */
 public class GetImagingSettingsThread extends Thread {
     private static String tag = "OnvifSdk";

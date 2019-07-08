@@ -6,9 +6,8 @@ import com.wp.android_onvif.onvifBean.Device;
 import com.wp.android_onvif.util.HttpUtil;
 
 /**
- * Author ： BlackHao
- * Time : 2018/1/11 14:20
- * Description : 获取 device 相关信息
+ *
+ * 修改摄像头Ip
  */
 
 public class SetNetworkInterfaceThread extends Thread {

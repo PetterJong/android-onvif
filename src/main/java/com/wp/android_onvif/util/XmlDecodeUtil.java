@@ -106,6 +106,44 @@ public class XmlDecodeUtil {
     }
 
     /**
+     * 解析 xml数据，获取 MediaUrl,PtzUrl
+     *
+     * @param xml    需要解析的数据
+     * @param device 对应的device
+     */
+    public static void getDeviceInformation(String xml, Device device) throws Exception {
+        XmlPullParser parser = Xml.newPullParser();
+        InputStream input = new ByteArrayInputStream(xml.getBytes());
+        parser.setInput(input, "UTF-8");
+        int eventType = parser.getEventType();
+        while (eventType != XmlPullParser.END_DOCUMENT) {
+            switch (eventType) {
+                case XmlPullParser.START_DOCUMENT:
+                    break;
+                case XmlPullParser.START_TAG:
+                    if (parser.getName().equals("FirmwareVersion")) {
+                        String firmwareVersion = parser.nextText();
+                        device.setFirmwareVersion(firmwareVersion);
+                    } else if (parser.getName().equals("SerialNumber")) {
+                        String srialNumber = parser.nextText();
+                        device.setSerialNumber(srialNumber);
+                    } else if (parser.getName().equals("Manufacturer")) {
+                        String manufacturer = parser.nextText();
+                        device.setManufacturer(manufacturer);
+                    }
+                    break;
+                case XmlPullParser.END_TAG:
+                    break;
+                default:
+                    break;
+            }
+            eventType = parser.next();
+        }
+    }
+
+
+
+    /**
      * 解析 xml数据，获取 MediaProfile
      *
      * @param xml 需要解析的数据

@@ -13,9 +13,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * Author ： BlackHao
- * Time : 2018/1/11 14:20
- * Description : 获取 device 相关信息
+ * 获取设备信息
  */
 
 public class GetDeviceInfoThread extends Thread {
@@ -42,6 +40,13 @@ public class GetDeviceInfoThread extends Thread {
             String caps = HttpUtil.postRequest(device.getServiceUrl(), postString);
             //解析返回的xml数据获取存在的url
             XmlDecodeUtil.getCapabilitiesUrl(caps, device);
+            // getDeviceInformation 获取设备信息
+
+            String deviceInformation = OnvifUtils.getPostString("getDeviceInformation.xml", context, device, true);
+            String deviceInformationReturn = HttpUtil.postRequest(device.getServiceUrl(), deviceInformation);
+            XmlDecodeUtil.getDeviceInformation(deviceInformationReturn, device);
+
+
             //getProfiles，需要鉴权
             postString = OnvifUtils.getPostString("getProfiles.xml", context, device, true);
             String profilesString = HttpUtil.postRequest(device.getMediaUrl(), postString);

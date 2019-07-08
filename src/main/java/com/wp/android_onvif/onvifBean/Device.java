@@ -25,6 +25,12 @@ public class Device {
     private String serviceUrl;
     private String uuid;
     /**
+     * 通过getDeviceInformation 获取
+     */
+    private String firmwareVersion;
+    private String manufacturer;
+    private String serialNumber;
+    /**
      * getCapabilities
      */
     private String mediaUrl;
@@ -63,6 +69,30 @@ public class Device {
 
     public void setPsw(String psw) {
         this.psw = psw;
+    }
+
+    public String getFirmwareVersion() {
+        return firmwareVersion;
+    }
+
+    public void setFirmwareVersion(String firmwareVersion) {
+        this.firmwareVersion = firmwareVersion;
+    }
+
+    public String getManufacturer() {
+        return manufacturer;
+    }
+
+    public void setManufacturer(String manufacturer) {
+        this.manufacturer = manufacturer;
+    }
+
+    public String getSerialNumber() {
+        return serialNumber;
+    }
+
+    public void setSerialNumber(String serialNumber) {
+        this.serialNumber = serialNumber;
     }
 
     public String getServiceUrl() {
@@ -143,17 +173,24 @@ public class Device {
         this.ipAddress = ipAddress;
     }
 
+
     @Override
     public String toString() {
         return "Device{" +
-                "serviceUrl='" + serviceUrl + '\'' +
+                "userName='" + userName + '\'' +
+                ", psw='" + psw + '\'' +
+                ", ipAddress='" + ipAddress + '\'' +
+                ", serviceUrl='" + serviceUrl + '\'' +
                 ", uuid='" + uuid + '\'' +
+                ", firmwareVersion='" + firmwareVersion + '\'' +
+                ", manufacturer='" + manufacturer + '\'' +
+                ", serialNumber='" + serialNumber + '\'' +
                 ", mediaUrl='" + mediaUrl + '\'' +
                 ", ptzUrl='" + ptzUrl + '\'' +
                 ", imageUrl='" + imageUrl + '\'' +
                 ", eventUrl='" + eventUrl + '\'' +
                 ", analyticsUrl='" + analyticsUrl + '\'' +
-                ", profiles='" + profiles + '\'' +
+                ", profiles=" + profiles +
                 '}';
     }
 }
