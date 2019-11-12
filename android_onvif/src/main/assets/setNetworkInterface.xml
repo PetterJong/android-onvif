@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:tds="http://www.onvif.org/ver10/device/wsdl" xmlns:tt="http://www.onvif.org/ver10/schema">
+    <soap:Header>
+        <Security xmlns="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" s:mustUnderstand="1">
+            <UsernameToken>
+                <Username>%s</Username>
+                <Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordDigest">%s</Password>
+                <Nonce EncodingType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0#Base64Binary">%s</Nonce>
+                <Created xmlns="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">%s</Created>
+            </UsernameToken>
+        </Security>
+    </soap:Header>
+    <soap:Body>
+        <tds:SetNetworkInterfaces>
+            <tds:InterfaceToken>%s</tds:InterfaceToken>
+            <tds:NetworkInterface>
+                <tt:Enabled>true</tt:Enabled>
+                <tt:MTU>%s</tt:MTU>
+                <tt:IPv4>
+                    <tt:Enabled>true</tt:Enabled>
+                    <tt:Manual>
+                        <tt:Address>%s</tt:Address>
+                        <tt:PrefixLength>%s</tt:PrefixLength>
+                    </tt:Manual>
+                    <tt:DHCP>false</tt:DHCP>
+                </tt:IPv4>
+            </tds:NetworkInterface>
+        </tds:SetNetworkInterfaces>
+    </soap:Body>
+</soap:Envelope>

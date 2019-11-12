@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/bt_discover"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="探索摄像头"/>
+        <Button
+            android:id="@+id/bt_network"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="获取网络接口配置"/>
+        <Button
+            android:id="@+id/bt_set_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="修改密码"/>
+        <Button
+            android:id="@+id/bt_ipc_firmware"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="摄像头固件升级"/>
+
+        <Button
+            android:id="@+id/bt_cap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="摄像头截图"/>
+
+        <Button
+            android:id="@+id/bt_update_time"
+            android:text="修改时间"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/bt_system_reboot"
+            android:text="重启摄像头"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/bt_setip"
+            android:text="修改摄像头ip(11->12)"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/bt_setip2"
+            android:text="修改摄像头ip(12->11)"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/bt_getImageSettings"
+            android:text="获取摄像头参数"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/bt_setImageSettings"
+            android:text="设置摄像头参数"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+
+</ScrollView>
