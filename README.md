@@ -2,7 +2,8 @@
 
 # android-onvif
 ## 1. 介绍
-android-onvif是一个基于android系统控制onvif协议摄像头的软件项目，例如海康摄像头等。本项目已将接口封装，使用简单。后续将扩展更多功能。。。
+- android-onvif是一个基于android系统控制onvif协议摄像头的软件项目，例如海康摄像头等。本项目已将接口封装，使用简单。后续将扩展更多功能。。。
+- 使用前请先确认摄像头是否支持onvif，onvif协议是一个庞大的协议，摄像头可能未完全支持onvif，我当初调试的就是如此，如果你是定制的可以要求厂家放开出来。可以使用odm查看是否支持某个功能控制，odm上显示灰色不能点击，即表示此摄像头该功能对应的onvif协议未实现
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20191112091401189.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3NpbmF0XzMzMjg1MTI3,size_16,color_FFFFFF,t_70)
 ## 2. 功能介绍
  - 探索与发现摄像头
