@@ -25,7 +25,8 @@ android-onvif是一个基于android系统控制onvif协议摄像头的软件项�
  -   \<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
  -   \<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
  ...
-推荐学习：android studio集成onvif协议的网络摄像头 https://blog.csdn.net/sinat_33285127/article/details/85164883
-onvif协议控制之鉴权方式 https://blog.csdn.net/sinat_33285127/article/details/85164883
+## 5. 推荐学习：
+- android studio集成onvif协议的网络摄像头 https://blog.csdn.net/sinat_33285127/article/details/85164883
+- onvif协议控制之鉴权方式 https://blog.csdn.net/sinat_33285127/article/details/85164883
 ...
 
