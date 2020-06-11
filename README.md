@@ -1,5 +1,28 @@
 ﻿
 
+# 实现功能
+
+本模块实现了以下功能：
+
+- mdm的主入口，执行notifyMain
+- 用户切换人口。执行用户切换
+- mdm的信息展示页面包含
+  - 消息页面
+  - 注册信息页面
+  - 应用卸载页面
+  - 菜单页面
+    - 移动管理
+    - 签到
+    - 下载应用商店
+    - 扫码配置apn
+    - 一键报警
+    - 取消激活
+    - 恢复重置及应用卸载功能
+    - 关于等
+- mdm Application，执行notifyApplicationDestroy，notifyApplication
+- log功能初始化
+- http功能初始化
+- 开机自启动广播
 # android-onvif
 ##1. 介绍
 android-onvif是一个基于android系统控制onvif协议摄像头的软件项目，例如海康摄像头等。本项目已将接口封装，使用简单。后续将扩展更多功能。。。
